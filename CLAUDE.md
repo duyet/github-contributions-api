@@ -1,45 +1,39 @@
-# GitHub Contributions API — Cloudflare Workers
+# GitHub Contributions API
 
-Rewrite of [grubersjoe/github-contributions-api](https://github.com/grubersjoe/github-contributions-api) for Cloudflare Workers using Hono.
+Cloudflare Workers rewrite of [grubersjoe/github-contributions-api](https://github.com/grubersjoe/github-contributions-api) by Jonathan Gruber ([@grubersjoe](https://github.com/grubersjoe)), MIT License.
 
-## Credits
+## Stack
 
-- **Original project**: [github-contributions-api](https://github.com/grubersjoe/github-contributions-api) by Jonathan Gruber ([@grubersjoe](https://github.com/grubersjoe))
-- **License**: MIT
-
-## Architecture
-
-- **Runtime**: Cloudflare Workers (edge)
+- **Runtime**: Cloudflare Workers
 - **Framework**: [Hono](https://hono.dev)
-- **Caching**: Cloudflare Cache API (`caches.default`) — 1 hour TTL
-- **HTML Parsing**: `HTMLRewriter` (Cloudflare built-in, streaming)
-- **No external deps** beyond Hono
+- **Caching**: Cloudflare Cache API — 1h TTL
+- **Parsing**: regex-based HTML scraper (no external deps)
+- **Testing**: Vitest + `@cloudflare/vitest-pool-workers`
 
-## Project Structure
+## Structure
 
 ```
 src/
-  index.ts      — Hono app, routes, entry point
-  scraper.ts    — GitHub contribution scraper (HTMLRewriter-based)
-  types.ts      — Shared types
+  index.ts      — Hono app, routes, cache middleware
+  scraper.ts    — fetch GitHub HTML → parse contributions
+  types.ts      — shared types
 test/
-  scraper.test.ts
-  index.test.ts
+  scraper.test.ts  — unit tests with mocked fetch
+  index.test.ts    — integration tests (live GitHub)
 ```
 
-## API
+## Routes
 
 ```
-GET /v1/:username
-GET /v1/:username?y=last
-GET /v1/:username?y=2024
-GET /v1/:username?y=2023&y=2024
+GET /v1/:username              — contributions (all years)
+GET /v1/:username?y=last       — last 12 months
+GET /v1/:username?y=2026       — specific year
+GET /v1/:username?y=2024,2025  — multiple years
 GET /v1/:username?format=nested
-GET /v1/user1,user2          # merge multiple accounts
-GET /v1/user1+user2
+GET /v1/user1,user2            — merge accounts (comma/plus)
 ```
 
-## Development
+## Commands
 
 ```bash
 pnpm install
@@ -47,3 +41,9 @@ pnpm dev       # wrangler dev
 pnpm test      # vitest
 pnpm deploy    # wrangler deploy
 ```
+
+## Deploy
+
+- **Production**: `https://ghca.duyet.net`
+- **Workers.dev**: `https://github-contributions-api.duyet.workers.dev`
+- **CI**: GitHub Actions — lint, test, deploy on push to `master`

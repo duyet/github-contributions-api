@@ -2,5 +2,9 @@ name = "github-contributions-api"
 main = "src/index.ts"
 compatibility_date = "2025-06-01"
 
+routes = [
+  { pattern = "ghca.duyet.net", custom_domain = true }
+]
+
 [observability]
 enabled = true

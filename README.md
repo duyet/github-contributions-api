@@ -2,9 +2,9 @@
 
 An API that returns GitHub contribution data by scraping user profiles. Fast, edge-deployed, cached globally.
 
-## API
+Live at **[ghca.duyet.net](https://ghca.duyet.net)**.
 
-Base URL: `https://github-contributions-api.duyet.workers.dev`
+## API
 
 ```
 GET /v1/:username
@@ -14,13 +14,10 @@ GET /v1/:username
 
 ```json
 {
-  "total": {
-    "lastYear": 10844
-  },
+  "total": { "lastYear": 10844 },
   "contributions": [
     { "date": "2025-06-08", "count": 2, "level": 1 },
-    { "date": "2025-06-09", "count": 4, "level": 1 },
-    { "date": "2025-06-10", "count": 13, "level": 1 }
+    { "date": "2025-06-09", "count": 4, "level": 1 }
   ]
 }
 ```
@@ -29,7 +26,7 @@ GET /v1/:username
 
 | Param    | Values                 | Default | Description        |
 | -------- | ---------------------- | ------- | ------------------ |
-| `y`      | `last`, `all`, `2024` | `all`   | Year(s) to fetch   |
+| `y`      | `last`, `all`, `2026` | `all`   | Year(s) to fetch   |
 | `format` | `nested`               | flat    | Response format    |
 
 #### Year selection
@@ -51,7 +48,7 @@ Returns contributions keyed by year → month → day instead of a flat array.
 
 ### Multi-account Merge
 
-Combine contributions from multiple accounts in one request:
+Combine contributions from multiple accounts:
 
 ```shell
 /v1/duyet,duyetbot            # comma-separated
@@ -88,7 +85,7 @@ type NestedResponse = {
 
 ## Caching
 
-Responses are cached for 1 hour via Cloudflare Cache API. The API returns standard `Cache-Control` headers.
+Responses are cached for 1 hour via Cloudflare Cache API.
 
 ## Development
 
