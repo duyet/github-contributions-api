@@ -6,7 +6,7 @@ An API that returns GitHub contribution data by scraping user profiles. Fast, ed
 
 ## API
 
-Base URL: `https://github-contributions-api.duyetbot.workers.dev`
+Base URL: `https://github-contributions-api.duyet.workers.dev`
 
 ```
 GET /v1/:username

@@ -9,7 +9,7 @@ function makeContributionsHTML(days: Array<{ date: string; level: number; count:
     const row = Math.floor(i / 53)
     const col = i % 53
     const id = `contribution-day-component-${row}-${col}`
-    return `<td tabindex="0" id="${id}" style="width: 10px" data-date="${d.date}" data-level="${d.level}" role="gridcell" data-view-component="true" class="ContributionCalendar-day"></td>`
+    return `<td tabindex="0" data-date="${d.date}" id="${id}" data-level="${d.level}" role="gridcell" data-view-component="true" class="ContributionCalendar-day"></td>`
   }).join('\n')
 
   const tooltips = days.map((d, i) => {

@@ -137,12 +137,13 @@ function parseHTML(html: string, year: number | 'lastYear'): FlatResponse {
     tipCounts.set(tm[1], parseInt(tm[2]))
   }
 
-  // Parse day cells: id="contribution-day-component-X-Y" data-date="YYYY-MM-DD" data-level="N"
-  const dayRe = /id="(contribution-day-component-[^"]+)"[^>]*data-date="(\d{4}-\d{2}-\d{2})"[^>]*data-level="(\d)"/g
+  // Parse day cells: data-date="YYYY-MM-DD" id="contribution-day-component-X-Y" data-level="N"
+  // Attribute order varies — match either direction
+  const dayRe = /data-date="(\d{4}-\d{2}-\d{2})"[^>]*id="(contribution-day-component-[^"]+)"[^>]*data-level="(\d)"/g
   let dm: RegExpExecArray | null
   while ((dm = dayRe.exec(html)) !== null) {
-    const id = dm[1]
-    const date = dm[2]
+    const date = dm[1]
+    const id = dm[2]
     const level = parseInt(dm[3]) as Level
     const count = tipCounts.get(id) ?? 0
 
