@@ -10,15 +10,6 @@ Live at **[ghca.duyet.net](https://ghca.duyet.net)**.
 GET /v1/:username
 ```
 
-### Try it
-
-| Example | Link |
-| ------- | ---- |
-| Last 12 months | [ghca.duyet.net/v1/duyet?y=last](https://ghca.duyet.net/v1/duyet?y=last) |
-| Specific year | [ghca.duyet.net/v1/duyet?y=2026](https://ghca.duyet.net/v1/duyet?y=2026) |
-| Merge accounts | [ghca.duyet.net/v1/duyet,duyetbot?y=last](https://ghca.duyet.net/v1/duyet,duyetbot?y=last) |
-| Nested format | [ghca.duyet.net/v1/duyet?format=nested](https://ghca.duyet.net/v1/duyet?format=nested) |
-
 ### Response
 
 ```json
@@ -40,29 +31,29 @@ GET /v1/:username
 
 #### Year selection
 
-```shell
-/v1/duyet?y=last              # last 12 months
-/v1/duyet?y=2026              # specific year
-/v1/duyet?y=2024,2025         # multiple years
-/v1/duyet?y=all               # all years (default)
-```
+| Description | Example |
+| ----------- | ------- |
+| Last 12 months | [/v1/duyet?y=last](https://ghca.duyet.net/v1/duyet?y=last) |
+| Specific year | [/v1/duyet?y=2026](https://ghca.duyet.net/v1/duyet?y=2026) |
+| Multiple years | [/v1/duyet?y=2024,2025](https://ghca.duyet.net/v1/duyet?y=2024,2025) |
+| All years | [/v1/duyet?y=all](https://ghca.duyet.net/v1/duyet?y=all) |
 
 #### Nested format
 
-```shell
-/v1/duyet?format=nested
-```
+| Description | Example |
+| ----------- | ------- |
+| Nested response | [/v1/duyet?format=nested](https://ghca.duyet.net/v1/duyet?format=nested) |
 
 Returns contributions keyed by year → month → day instead of a flat array.
 
 ### Multi-account Merge
 
-Combine contributions from multiple accounts:
+Combine contributions from multiple accounts. Counts are summed per date, levels recalculated.
 
-```shell
-/v1/duyet,duyetbot            # comma-separated
-/v1/duyet+duyetbot            # plus-separated
-```
+| Description | Example |
+| ----------- | ------- |
+| Comma-separated | [/v1/duyet,duyetbot?y=last](https://ghca.duyet.net/v1/duyet,duyetbot?y=last) |
+| Plus-separated | [/v1/duyet+duyetbot?y=last](https://ghca.duyet.net/v1/duyet+duyetbot?y=last) |
 
 Counts are summed per date, levels recalculated.
 
