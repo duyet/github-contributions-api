@@ -10,6 +10,15 @@ Live at **[ghca.duyet.net](https://ghca.duyet.net)**.
 GET /v1/:username
 ```
 
+### Try it
+
+| Example | Link |
+| ------- | ---- |
+| Last 12 months | [ghca.duyet.net/v1/duyet?y=last](https://ghca.duyet.net/v1/duyet?y=last) |
+| Specific year | [ghca.duyet.net/v1/duyet?y=2026](https://ghca.duyet.net/v1/duyet?y=2026) |
+| Merge accounts | [ghca.duyet.net/v1/duyet,duyetbot?y=last](https://ghca.duyet.net/v1/duyet,duyetbot?y=last) |
+| Nested format | [ghca.duyet.net/v1/duyet?format=nested](https://ghca.duyet.net/v1/duyet?format=nested) |
+
 ### Response
 
 ```json
