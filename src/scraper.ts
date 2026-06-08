@@ -88,7 +88,8 @@ async function scrapeYearLinks(
   years: 'all' | number[],
   fetchFn: typeof fetch,
 ): Promise<number[]> {
-  const res = await fetchFn(`https://github.com/${username}`, {
+  // Try fetching year links from the contributions tab
+  const res = await fetchFn(`https://github.com/${username}?tab=contributions`, {
     headers: { accept: 'text/html' },
   })
 
@@ -105,6 +106,21 @@ async function scrapeYearLinks(
   let m: RegExpExecArray | null
   while ((m = re.exec(html)) !== null) {
     available.push(parseInt(m[1]))
+  }
+
+  // If year links not found (GitHub lazy-loads them), use requested years directly
+  if (available.length === 0 && Array.isArray(years)) {
+    return years
+  }
+
+  // For 'all' with no discovered years, try common range
+  if (available.length === 0 && years === 'all') {
+    const currentYear = new Date().getFullYear()
+    const fallback: number[] = []
+    for (let y = currentYear; y >= currentYear - 10; y--) {
+      fallback.push(y)
+    }
+    return fallback
   }
 
   if (years === 'all') return available.sort()

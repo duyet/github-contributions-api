@@ -1,7 +1,5 @@
 # GitHub Contributions API
 
-> Rewrite of [grubersjoe/github-contributions-api](https://github.com/grubersjoe/github-contributions-api) running on Cloudflare Workers.
-
 An API that returns GitHub contribution data by scraping user profiles. Fast, edge-deployed, cached globally.
 
 ## API
@@ -17,36 +15,36 @@ GET /v1/:username
 ```json
 {
   "total": {
-    "lastYear": 729
+    "lastYear": 10844
   },
   "contributions": [
-    { "date": "2025-06-08", "count": 0, "level": 0 },
-    { "date": "2025-06-09", "count": 1, "level": 1 },
-    { "date": "2025-06-10", "count": 5, "level": 2 }
+    { "date": "2025-06-08", "count": 2, "level": 1 },
+    { "date": "2025-06-09", "count": 4, "level": 1 },
+    { "date": "2025-06-10", "count": 13, "level": 1 }
   ]
 }
 ```
 
 ### Query Parameters
 
-| Param   | Values                    | Default | Description              |
-| ------- | ------------------------- | ------- | ------------------------ |
-| `y`     | `last`, `all`, `2024`    | `all`   | Year(s) to fetch         |
-| `format`| `nested`                  | flat    | Response format           |
+| Param    | Values                 | Default | Description        |
+| -------- | ---------------------- | ------- | ------------------ |
+| `y`      | `last`, `all`, `2024` | `all`   | Year(s) to fetch   |
+| `format` | `nested`               | flat    | Response format    |
 
 #### Year selection
 
 ```shell
-/v1/grubersjoe?y=last            # last 12 months
-/v1/grubersjoe?y=2024            # specific year
-/v1/grubersjoe?y=2023,2024       # multiple years
-/v1/grubersjoe?y=all             # all years (default)
+/v1/duyet?y=last              # last 12 months
+/v1/duyet?y=2026              # specific year
+/v1/duyet?y=2024,2025         # multiple years
+/v1/duyet?y=all               # all years (default)
 ```
 
 #### Nested format
 
 ```shell
-/v1/grubersjoe?format=nested
+/v1/duyet?format=nested
 ```
 
 Returns contributions keyed by year → month → day instead of a flat array.
@@ -56,8 +54,8 @@ Returns contributions keyed by year → month → day instead of a flat array.
 Combine contributions from multiple accounts in one request:
 
 ```shell
-/v1/user1,user2
-/v1/user1+user2
+/v1/duyet,duyetbot            # comma-separated
+/v1/duyet+duyetbot            # plus-separated
 ```
 
 Counts are summed per date, levels recalculated.
@@ -103,8 +101,7 @@ pnpm deploy    # deploy to Cloudflare
 
 ## Credits
 
-- **Original project**: [github-contributions-api](https://github.com/grubersjoe/github-contributions-api) by [Jonathan Gruber](https://github.com/grubersjoe) — MIT License
-- Built with [Hono](https://hono.dev) on [Cloudflare Workers](https://workers.cloudflare.com)
+Based on [github-contributions-api](https://github.com/grubersjoe/github-contributions-api) by [Jonathan Gruber](https://github.com/grubersjoe) ([@grubersjoe](https://github.com/grubersjoe)) — MIT License. Rewrite running on Cloudflare Workers with [Hono](https://hono.dev).
 
 ## License
 

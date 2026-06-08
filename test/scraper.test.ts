@@ -116,7 +116,7 @@ describe('scraper', () => {
       const profile = makeProfileHTML([2023, 2024, 2025])
 
       const fetchFn = mockFetch(new Map([
-        ['https://github.com/alice', { ok: true, status: 200, body: profile }],
+        ['https://github.com/alice?tab=contributions', { ok: true, status: 200, body: profile }],
         ['https://github.com/users/alice/contributions?tab=overview&from=2024-12-01&to=2024-12-31', { ok: true, status: 200, body: year2024 }],
       ]))
 
@@ -142,7 +142,7 @@ describe('scraper', () => {
       const profile = makeProfileHTML([2023, 2024])
 
       const fetchFn = mockFetch(new Map([
-        ['https://github.com/alice', { ok: true, status: 200, body: profile }],
+        ['https://github.com/alice?tab=contributions', { ok: true, status: 200, body: profile }],
         ['https://github.com/users/alice/contributions?tab=overview&from=2023-12-01&to=2023-12-31', { ok: true, status: 200, body: year2023 }],
         ['https://github.com/users/alice/contributions?tab=overview&from=2024-12-01&to=2024-12-31', { ok: true, status: 200, body: year2024 }],
       ]))

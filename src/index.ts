@@ -11,7 +11,7 @@ const app = new Hono()
 
 app.use('*', cors())
 app.use(
-  `/api/${VERSION}/*`,
+  `/${VERSION}/*`,
   cache({
     cacheName: 'github-contributions',
     cacheControl: 'public, max-age=3600, s-maxage=3600',
@@ -47,7 +47,9 @@ app.get(`/${VERSION}/:usernames`, async (c) => {
       query,
       noCache ? fetch : fetch,
     )
-    return c.json(result)
+    return c.json(result, 200, {
+      'Cache-Control': 'public, max-age=3600, s-maxage=3600',
+    })
   } catch (err) {
     return handleError(c, err)
   }
